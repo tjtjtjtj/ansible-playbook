@@ -1,0 +1,15 @@
+- name: git install
+  become: yes
+  yum: name=git state=latest
+
+- name: jdk install
+  become: yes
+  yum: name=java-1.8.0-openjdk state=latest
+
+- name: epel install
+  become: yes
+  yum: name=epel-release state=latest
+
+- name: htop install
+  become: yes
+  yum: name=htop state=latest

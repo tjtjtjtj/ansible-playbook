@@ -1,0 +1,43 @@
+- name: vim install
+  become: yes
+  yum: name=vim-enhanced state=latest
+
+- name: list of home directories 
+  become: yes
+  shell: cat /etc/passwd | awk -F":" '/^{{ item }}/{print $6}'
+  register: HOME_DIRECTORIES_LIST
+  changed_when: False
+  with_items: "{{ users }}"
+
+- name: make vim bundle dir
+  become: yes
+  file: path={{ item.stdout }}/.vim/bundle state=directory owner={{ item.item }} group={{ item.item }}
+  with_items: "{{ HOME_DIRECTORIES_LIST.results }}"
+
+- name: git clone NeoBundle
+  become: yes
+  git:
+    repo: https://github.com/Shougo/neobundle.vim
+    dest: "{{ item.stdout }}/.vim/bundle/neobundle.vim"
+  with_items: "{{ HOME_DIRECTORIES_LIST.results }}"
+
+# 以下のものは list作成などのサンプルとして、取っておく
+#- name: list of home directories 
+#  become: yes
+#  shell: cat /etc/passwd | awk -F":" '/^{{ item }}/{print $6}'
+#  register: HOME_DIRECTORIES_LIST
+#  changed_when: False
+#  with_items: "{{ users }}"
+#  
+#- name: Initialize an empty list for home directories
+#  set_fact:
+#    home_directories: []
+#
+#- name: Append string to list
+#  set_fact:
+#    home_directories: "{{ home_directories }} + [ '{{ item.stdout }}' ]"
+#  with_items: "{{ HOME_DIRECTORIES_LIST.results }}"
+#
+#- name: var output
+#  debug: var=HOME_DIRECTORIES_LIST
+

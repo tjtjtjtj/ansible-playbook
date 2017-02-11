@@ -1,0 +1,20 @@
+- name: "jenkins yum repository"
+  become: yes
+  yum_repository:
+    name: jenkins
+    description: "jenkins YUM repo"
+    baseurl: "http://pkg.jenkins-ci.org/redhat-stable/"
+- name: "jenkins-ci.org.key installed"
+  become: yes
+  rpm_key:
+    key: "http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key"
+- name: "Jenkins installed"
+  become: yes
+  yum:
+    name: jenkins
+- name: "Jenkins service started"
+  become: yes
+  service:
+    name: jenkins
+    state: started
+    enabled: yes

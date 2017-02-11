@@ -1,0 +1,15 @@
+- hosts:
+  - all
+  roles:
+    - {role: os_common, tags: "os_common"} 
+
+- hosts:
+  - develop
+  roles:
+    - {role: developtools/vim, tags: "developtools/vim"} 
+    - {role: developtools/ansible-go, tags: "developtools/ansible-go"} 
+
+- hosts:
+  - jenkins
+  roles:
+    - {role: jenkins, tags: "jenkins"} 
