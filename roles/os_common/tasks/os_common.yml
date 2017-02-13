@@ -13,3 +13,10 @@
 - name: htop install
   become: yes
   yum: name=htop state=latest
+
+- name: change vm.swappiness of tuned.conf
+  become: yes
+  lineinfile: >
+    dest=/usr/lib/tuned/virtual-guest/tuned.conf
+    regexp='^vm.swappiness = '
+    line='vm.swappiness = 0'
