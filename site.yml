@@ -13,3 +13,13 @@
   - jenkins
   roles:
     - {role: jenkins, tags: "jenkins"} 
+
+- hosts:
+  - sample
+  roles:
+    - {role: sample, tags: "sample"} 
+
+- hosts:
+  - zabbix-server
+  roles:
+    - {role: zabbix-server, tags: "zabbix-server"} 

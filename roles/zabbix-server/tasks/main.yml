@@ -1,0 +1,19 @@
+---
+
+- name: zabbix 2.4 repo add
+  become: yes
+  yum: name={{ zabbix_repo_6 }}
+    state=present
+
+- name: mysql for zabbix install
+  become: yes
+  yum: name=mysql-server
+    state=present
+
+  # zabbix,zabbix-serverは依存関係で導入される
+- name: zabbix 2.4 install
+  become: yes
+  yum: name={{ item }}
+    state=present
+  with_items:
+    - zabbix-server-mysql

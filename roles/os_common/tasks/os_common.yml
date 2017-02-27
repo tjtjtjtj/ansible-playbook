@@ -20,3 +20,4 @@
     dest=/usr/lib/tuned/virtual-guest/tuned.conf
     regexp='^vm.swappiness = '
     line='vm.swappiness = 0'
+  when: ansible_distribution_major_version == 7
