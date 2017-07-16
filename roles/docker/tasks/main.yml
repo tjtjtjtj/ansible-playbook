@@ -1,0 +1,10 @@
+- name: docker install
+  #冪等性になってないけど一旦
+  #[WARNING]: Consider using get_url or uri module rather than running curl
+  shell: curl -fsSL https://get.docker.com/ | sh
+
+- name: docker auto start
+  service:
+    name: docker
+    state: started
+    enabled: yes

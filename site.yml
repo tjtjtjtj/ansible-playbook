@@ -23,3 +23,13 @@
   - zabbix-server
   roles:
     - {role: zabbix-server, tags: "zabbix-server"} 
+
+- hosts:
+  - docker
+  roles:
+    - {role: docker, tags: "docker"} 
+
+- hosts:
+  - docker_mackerel
+  roles:
+    - {role: docker_mackerel, tags: "docker_mackerel"} 

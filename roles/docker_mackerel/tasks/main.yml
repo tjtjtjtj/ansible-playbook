@@ -1,0 +1,32 @@
+---
+#なんか失敗したので、手で入れた
+#- name: Install pip
+#  shell: "curl -kL https://bootstrap.pypa.io/get-pip.py | python"
+
+- name: Install docker-py
+  pip:
+    name: "docker-py"
+    version: 1.7.1
+    state: present
+
+- name: mackerel container
+  docker:
+    name:  mackerel-agent 
+    hostname: "{{ inventory_hostname }}"
+    image: mackerel/mackerel-agent
+    state: reloaded
+    restart_policy: always
+    env:
+      apikey: e8JnYTjNq3WdQMQ7kRzYsbaaTih4M7M5FerKgXTmMgiB
+      enable_docker_plugin: "true"
+      auto_retirement: "false"
+      opts: -v
+    #labels:
+    #  build-date: "20170306"
+    #  license: "GPLv2"
+    #  name: "CentOS Base Image"
+    #  vendor: "CentOS"     
+    net: default
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/mackerel-agent/:/var/lib/mackerel-agent/

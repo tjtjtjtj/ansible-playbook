@@ -1,0 +1,58 @@
+---
+- name: Download the Go tarball
+  get_url:
+    url: "{{ go_download_location }}"
+    dest: /usr/local/src/{{ go_tarball }}
+    checksum: "{{ go_tarball_checksum }}"
+
+- name: Register the current Go version (if any)
+  command: /usr/local/go/bin/go version
+  ignore_errors: yes
+  register: go_version
+  changed_when: false
+
+- name: Remove old installation of Go
+  file:
+    path: /usr/local/go
+    state: absent
+  when: go_version|failed or go_version.stdout != go_version_target
+
+- name: Extract the Go tarball if Go is not yet installed or not the desired version
+  unarchive:
+    src: /usr/local/src/{{ go_tarball }}
+    dest: /usr/local
+    copy: no
+  when: go_version|failed or go_version.stdout != go_version_target
+
+- name: Add the Go bin directory to the PATH environment variable for all users
+  copy:
+    src: go-bin.sh
+    dest: /etc/profile.d
+
+- name: Set GOPATH for all users
+  copy:
+    src: go-path.sh
+    dest: /etc/profile.d
+  when: set_go_path
+
+- name: Go packages install
+  shell: go get {{ item }}
+  become: yes
+  become_user: jenkins
+  register: testout
+  with_items: 
+    - github.com/motemen/gore
+    - github.com/motemen/ghq
+    - github.com/nsf/gocode
+    - github.com/k0kubun/pp
+    - golang.org/x/tools/cmd/...
+    - github.com/golang/lint/golint
+    - github.com/Masterminds/glide
+
+- name: output test
+  debug: var=testout
+
+- name: add ghq path to git config
+  shell: git config --global ghq.root $GOPATH/src
+  become: yes
+  become_user: jenkins

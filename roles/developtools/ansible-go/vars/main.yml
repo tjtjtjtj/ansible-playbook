@@ -1,0 +1,5 @@
+---
+go_download_location: "https://storage.googleapis.com/golang/{{ go_tarball }}"
+go_packages:
+        - "github.com/motemen/gore"
+        - "golang.org/x/tools/cmd/godoc"
