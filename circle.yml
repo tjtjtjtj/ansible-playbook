@@ -8,5 +8,5 @@ dependencies:
 
 test:
   override:
-    - ansible-lint -L
+    - ansible-lint ./
     - echo Hello World
