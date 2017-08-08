@@ -1,6 +1,6 @@
 machine:
   python:
-    version: 1.9.3-p0-falcon
+    version: 2.4.1
 
 dependencies:
   pre:
