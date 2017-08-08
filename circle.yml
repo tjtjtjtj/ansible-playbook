@@ -1,12 +1,9 @@
 machine:
-  services:
-    - docker
-  environment:
-    DOCKER_API_VERSION: "1.20"
+  python:
+    version: 1.9.3-p0-falcon
 
 dependencies:
   pre:
-    - docker pull ubuntu:16.04
     - sudo pip install ansible
     - git clone https://github.com/willthames/ansible-lint.git
     - export PYTHONPATH=$PYTHONPATH:`pwd`/ansible-lint/lib
@@ -14,6 +11,5 @@ dependencies:
 
 test:
   override:
-    - docker run -d --name web ubuntu:16.04 /bin/sleep 3600
     - ansible-lint site.yml
     - echo Hello World
