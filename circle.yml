@@ -8,5 +8,5 @@ dependencies:
 
 test:
   override:
-    - ansible-lint site.yml
+    - ansible-lint -L
     - echo Hello World
