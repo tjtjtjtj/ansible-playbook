@@ -7,7 +7,10 @@ machine:
 dependencies:
   pre:
     - docker pull ubuntu:16.04
-    - sudo pip install ansible ansible-lint docker-py
+    - sudo pip install ansible
+    - git clone https://github.com/willthames/ansible-lint.git
+    - export PYTHONPATH=$PYTHONPATH:`pwd`/ansible-lint/lib
+    - export PATH=$PATH:`pwd`/ansible-lint/bin
 
 test:
   override:
