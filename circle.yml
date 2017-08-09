@@ -9,4 +9,5 @@ dependencies:
 test:
   override:
     - ansible-lint ./*
+    - ansible-playbook --syntax-check site.yml
     - echo Hello World
