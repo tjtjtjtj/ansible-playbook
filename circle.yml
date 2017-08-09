@@ -4,7 +4,7 @@ machine:
 
 dependencies:
   pre:
-    - pip install ansibleansible\==1.9.4 ansible-lint
+    - pip install ansible\==1.9.4 ansible-lint
 
 test:
   override:
