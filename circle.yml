@@ -8,6 +8,6 @@ dependencies:
 
 test:
   override:
-    - ansible-lint site.yml
+    #- ansible-lint site.yml
     - ansible-playbook --syntax-check site.yml
     - echo Hello World
