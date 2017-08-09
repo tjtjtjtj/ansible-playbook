@@ -4,11 +4,12 @@ machine:
 
 dependencies:
   pre:
-    - pip install ansible\==1.9.4 ansible-lint
+    - pip install ansible ansible-lint
+    - git clone https://github.com/tsukinowasha/ansible-lint-rules.git
 
 test:
   override:
-    #- ansible-lint site.yml
+    - ansible-lint -r rules site.yml
     - ansible-playbook --syntax-check site.yml
     - ansible --version
     - echo Hello World
