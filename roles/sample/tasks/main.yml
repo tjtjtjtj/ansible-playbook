@@ -1,3 +1,7 @@
 ---
 - name: moduel test sample role
   debug: msg="test test test"
+
+- template:
+    src: foo
+    dest: /tmp/file.conf
