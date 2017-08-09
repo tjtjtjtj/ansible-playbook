@@ -9,7 +9,7 @@ dependencies:
 
 test:
   override:
-    - ansible-lint -r rules site.yml
+    - ansible-lint -r ./ansible-lint-rules/rules site.yml
     - ansible-playbook --syntax-check site.yml
     - ansible --version
     - echo Hello World
