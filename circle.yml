@@ -11,3 +11,8 @@ test:
     #- ansible-lint site.yml
     - ansible-playbook --syntax-check site.yml
     - echo Hello World
+
+general:
+  branches:
+    ignore:
+      - master
