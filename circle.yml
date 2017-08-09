@@ -1,15 +1,17 @@
 machine:
   python:
-    version: 2.7.10
+    version: 2.7.5
 
 dependencies:
   pre:
-    - pip install ansible ansible-lint
+    - pip install ansible\==2.1.6 ansible-lint
+    - git clone https://github.com/tsukinowasha/ansible-lint-rules.git
 
 test:
   override:
-    #- ansible-lint site.yml
+    - ansible-lint -r ./ansible-lint-rules/rules -t module site.yml
     - ansible-playbook --syntax-check site.yml
+    - ansible --version
     - echo Hello World
 
 general:
