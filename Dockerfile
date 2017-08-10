@@ -1,7 +1,6 @@
 FROM centos:7
 MAINTAINER tjtjtjtj
 
-RUN yum -y groupinstall "Base"
 RUN usermod docker
 RUN mkdir -p /home/docker/.ssh
 RUN chmod 700 /home/docker/.ssh
