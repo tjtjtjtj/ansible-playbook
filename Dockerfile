@@ -1,7 +1,7 @@
 FROM centos:7
 MAINTAINER tjtjtjtj
 
-RUN usermod docker
+RUN useradd docker
 RUN mkdir -p /home/docker/.ssh
 RUN chmod 700 /home/docker/.ssh
 COPY ./keys/docker_id_rsa.pub /home/docker/.ssh/authorized_keys
