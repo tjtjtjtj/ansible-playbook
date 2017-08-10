@@ -1,11 +1,14 @@
 machine:
   python:
     version: 2.7.5
+  services:
+    - docker
 
 dependencies:
   pre:
     - pip install ansible\==2.1.6 ansible-lint
     - git clone https://github.com/tsukinowasha/ansible-lint-rules.git
+    - docker build -t test_docker .
 
 test:
   override:
@@ -13,6 +16,7 @@ test:
     - ansible-playbook --syntax-check site.yml
     - ansible --version
     - echo Hello World
+    - docker run -d test_docker
 
 general:
   branches:
