@@ -8,6 +8,8 @@ dependencies:
   pre:
     - pip install ansible\==2.1.6 ansible-lint
     - git clone https://github.com/tsukinowasha/ansible-lint-rules.git
+    - mkdir -p keys
+    - ssh-keygen -P "" -f keys/docker_id_rsa
     - docker build -t test_docker .
 
 test:
@@ -16,7 +18,8 @@ test:
     - ansible-playbook --syntax-check site.yml
     - ansible --version
     - echo Hello World
-    - docker run -d test_docker
+    - docker run -d test_docker -p 40122:22 --name test_sshd
+    - ssh docker@localhost -p 40122 -i keys/docker_id_rsa
 
 general:
   branches:
