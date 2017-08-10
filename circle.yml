@@ -6,9 +6,12 @@ machine:
 
 dependencies:
   pre:
+    - docker info
+    - iptables -L
     - pip install ansible\==2.1.6 ansible-lint
     - git clone https://github.com/tsukinowasha/ansible-lint-rules.git
-    - mkdir -p keys
+    - mkdir -p keys provisioning/inventory
+    - echo "docker ansible_user=docker ansible_port=40122 ansible_host=localhost ansible_ssh_private_key_file=./keys/docker_id_rsa" >> ./provisioning/inventory/docker
     - ssh-keygen -P "" -f keys/docker_id_rsa
     - docker build -t test_docker .
 
