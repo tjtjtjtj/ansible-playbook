@@ -21,7 +21,7 @@ test:
     - ansible --version
     - echo Hello World
     - docker run -d -p 40122:22 --name test_sshd test_docker
-    - docker exec test_sshd systemctl restart sshd.service
+    - sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" test_sshd)" -- bash -c systemctl restart sshd.service
     - ssh docker@localhost -p 40122 -i keys/docker_id_rsa
 
 general:
