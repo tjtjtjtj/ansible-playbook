@@ -7,7 +7,6 @@ machine:
 dependencies:
   pre:
     - docker info
-    - sudo iptables -L
     - pip install ansible\==2.1.6 ansible-lint
     - git clone https://github.com/tsukinowasha/ansible-lint-rules.git
     - mkdir -p keys provisioning/inventory
@@ -21,7 +20,7 @@ test:
     - ansible-playbook --syntax-check site.yml
     - ansible --version
     - echo Hello World
-    - docker run -d test_docker -p 40122:22 --name test_sshd
+    - docker run -d -p 40122:22 --name test_sshd test_docker
     - ssh docker@localhost -p 40122 -i keys/docker_id_rsa
 
 general:
