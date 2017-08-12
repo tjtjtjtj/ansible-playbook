@@ -26,9 +26,9 @@ test:
     - docker inspect --format "{{.Id}}" test_sshd 
     - sudo ls -lR /var/lib/docker/containers/$(docker inspect --format "{{.Id}}" test_sshd)
     - echo $CID
-    - sudo lxc-attach -n $(docker inspect --format "{{.Id}}" test_sshd) -f /var/lib/docker/containers/$(docker inspect --format "{{.Id}}" test_sshd)/config.lxc -- /bin/sh -c "systemctl restart sshd.service"
+      #- sudo lxc-attach -n $(docker inspect --format "{{.Id}}" test_sshd) -f /var/lib/docker/containers/$(docker inspect --format "{{.Id}}" test_sshd)/config.lxc -- /bin/sh -c "systemctl restart sshd.service"
 
-      #- sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" test_sshd)" -- bash -c "systemctl restart sshd.service
+    - sudo lxc-attach -n $(docker inspect --format "{{.Id}}" test_sshd) -- bash -c "systemctl restart sshd.service"
       #- sudo docker inspect --format "{{.Id}}" test_sshd) sudo lxc-attach -n $CID -f /var/lib/docker/contaIners/$CID/config.lxc -- /bin/sh -c "systemctl restart sshd.service"
     - ssh docker@localhost -p 40122 -i keys/docker_id_rsa
 
