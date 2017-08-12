@@ -10,6 +10,7 @@ RUN chmod 600 /home/docker/.ssh/authorized_keys
 RUN chown -R docker:docker /home/docker/.ssh
 
 RUN echo "docker ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN echo "AddressFamily inet" >> /etc/ssh/sshd_config 
 
 EXPOSE 22
 
