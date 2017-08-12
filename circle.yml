@@ -22,7 +22,7 @@ test:
     - ansible-playbook --syntax-check site.yml
     - ansible --version
     - echo Hello World
-    - docker run -d -p 40122:22 --name test_sshd test_docker
+    - docker run -d --privileged -p 40122:22 --name test_sshd test_docker /sbin/init
     - docker inspect --format "{{.Id}}" test_sshd 
     - sudo ls -lR /var/lib/docker/containers/$(docker inspect --format "{{.Id}}" test_sshd)
     - echo $CID
