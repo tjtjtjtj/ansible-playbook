@@ -1,6 +1,8 @@
 machine:
   python:
     version: 2.7.5
+  enviroment:
+    CID: ""
   services:
     - docker
 
@@ -21,10 +23,9 @@ test:
     - ansible --version
     - echo Hello World
     - docker run -d -p 40122:22 --name test_sshd test_docker
-    - CID=$(docker inspect --format "{{.Id}}" test_sshd) sudo ls -lR /var/lib/docker/containers 
+    - CID=$(docker inspect --format "{{.Id}}" test_sshd) 
+    - sudo ls -lR /var/lib/docker/containers/$CID 
     - echo $CID
-      environment:
-        $CID: $(docker inspect --format "{{.Id}}" test_sshd)
 
       #- sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" test_sshd)" -- bash -c "systemctl restart sshd.service
       #- sudo docker inspect --format "{{.Id}}" test_sshd) sudo lxc-attach -n $CID -f /var/lib/docker/contaIners/$CID/config.lxc -- /bin/sh -c "systemctl restart sshd.service"
