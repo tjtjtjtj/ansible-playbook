@@ -22,9 +22,9 @@ test:
     - ansible-playbook --syntax-check site.yml
     - ansible --version
     - echo Hello World
-      #- docker run -d -p 40122:22 --name test_sshd test_docker
+    - docker run -d -p 40122:22 --name test_sshd test_docker
       #- docker run -d --privileged -p 40122:22 --name test_sshd test_docker /sbin/init
-    - docker run -d -p 40122:22 --name test_sshd test_docker /sbin/init
+      #- docker run -d -p 40122:22 --name test_sshd test_docker /sbin/init
     - docker logs test_sshd
     - ssh docker@localhost -p 40122 -i keys/docker_id_rsa -o StrictHostKeyChecking=no
       #- ssh docker@localhost -p 40122 -i keys/docker_id_rsa -o StrictHostKeyChecking=no

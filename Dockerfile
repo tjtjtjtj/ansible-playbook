@@ -1,7 +1,16 @@
-FROM centos:6
+FROM centos:7
 MAINTAINER tjtjtjtj
 
-RUN yum -y install openssh-server
+RUN yum -y install openssh-server openssh
+RUN ssh-keygen -t rsa -N "" -f /etc/ssh/ssh_host_rsa_key
+RUN ssh-keygen -t dsa -N "" -f /etc/ssh/ssh_host_dsa_key
+RUN ssh-keygen -t ecdsa -N "" -f /etc/ssh/ssh_host_ecdsa_key
+RUN ssh-keygen -t ed25519 -N "" -f /etc/ssh/ssh_host_ed25519_key
+
+RUN mkdir /var/run/sshd
+RUN sed -ri 's/^#RSAAuthentication yes/RSAAuthentication yes/' /etc/ssh/sshd_config
+RUN sed -ri 's/^#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+
 RUN useradd docker
 RUN mkdir -p /home/docker/.ssh
 RUN chmod 700 /home/docker/.ssh

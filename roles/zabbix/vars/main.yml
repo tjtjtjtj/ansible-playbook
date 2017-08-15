@@ -1,0 +1,7 @@
+zabbix_script_dir: "/usr/local/bin"
+zabbix_script_name: "zbx_nginx_stat.py"
+nginx_admin_user: "nginx"
+zabbix_servers:
+  production: "172.27.49.106"
+  staging: "172.16.100.196"
+  stress: "172.27.100.42"

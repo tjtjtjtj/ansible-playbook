@@ -1,0 +1,4 @@
+ip_addr: 172.168.11.42
+hostname: vm002.dmm.co.jp
+i3_env: production
+i3_template: 1.0

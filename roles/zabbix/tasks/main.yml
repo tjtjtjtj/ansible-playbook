@@ -1,0 +1,29 @@
+- name: set fact zabbix_server_ipaddr for production
+  set_fact:
+    zabbix_server_ipaddr: "{{ zabbix_servers.production }}"
+  when: i3_env == "production"
+
+- name: set fact zabbix_server_ipaddr for staging
+  set_fact:
+    zabbix_server_ipaddr: "{{ zabbix_servers.staging }}"
+  when: i3_env == "staging"
+
+- name: set fact zabbix_server_ipaddr for stress
+  set_fact:
+    zabbix_server_ipaddr: "{{ zabbix_servers.stress }}"
+  when: i3_env == "stress"
+
+- name: copy zabbix sender script, zbx_nginx_stat.py
+  template: 
+    src: "{{ zabbix_script_name }}"
+    dest: "{{ zabbix_script_dir }}/{{ zabbix_script_name }}"
+    mode: 0755
+    owner: root
+    group: root
+
+- name: setup nginx user crontab for zbx_nginx_stat.py
+  cron: 
+    name: "{{ zabbix_script_name }}"
+    user: "{{ nginx_admin_user }}"
+    minute: "*/1"
+    job: "{{ zabbix_script_dir }}/{{ zabbix_script_name }} >/dev/null 2>&1"

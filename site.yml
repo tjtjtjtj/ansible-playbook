@@ -2,6 +2,7 @@
   - all
   roles:
     - {role: os_common, tags: "os_common"} 
+    - {role: os_common/motd, tags: "os_common/motd"} 
 
 - hosts:
   - develop
@@ -33,3 +34,8 @@
   - docker_mackerel
   roles:
     - {role: docker_mackerel, tags: "docker_mackerel"} 
+
+- hosts:
+  - zabbix
+  roles:
+    - {role: zabbix, tags: "zabbix"} 
