@@ -16,8 +16,9 @@ dependencies:
     - echo "docker ansible_user=docker ansible_port=40122 ansible_host=localhost ansible_ssh_private_key_file=./keys/docker_id_rsa" >> ./provisioning/inventory/docker
     - ls -lR ./
     - ssh-keygen -P "" -f keys/docker_id_rsa
-    - chown -R root:root keys/docker_id_rsa
+    - ls -lR ./
     - chmod 600 keys/docker_id_rsa
+    - chown -R root:root keys/docker_id_rsa
     - docker build -t test_docker .
 
 test:
