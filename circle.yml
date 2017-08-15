@@ -17,8 +17,8 @@ dependencies:
     - ls -lR ./
     - ssh-keygen -P "" -f keys/docker_id_rsa
     - ls -lR ./
-    - chmod 600 keys/docker_id_rsa
-    - chown -R root:root keys/docker_id_rsa
+    - chmod 600 keys/docker_id_rsa*
+      #- chown -R root:root keys/docker_id_rsa
     - docker build -t test_docker .
 
 test:
