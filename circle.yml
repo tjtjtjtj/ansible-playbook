@@ -1,11 +1,25 @@
 machine:
   python:
     version: 2.7.5
+  enviroment:
+    CID: ""
+  services:
+    - docker
 
 dependencies:
   pre:
+    - whoami
+    - docker info
     - pip install ansible\==2.1.6 ansible-lint
     - git clone https://github.com/tsukinowasha/ansible-lint-rules.git
+    - mkdir -p keys provisioning/inventory
+    - echo "docker ansible_user=docker ansible_port=40122 ansible_host=localhost ansible_ssh_private_key_file=./keys/docker_id_rsa" >> ./provisioning/inventory/docker
+    - ls -lR ./
+    - ssh-keygen -P "" -f keys/docker_id_rsa
+    - ls -lR ./
+    - chmod 600 keys/docker_id_rsa*
+      #- chown -R root:root keys/docker_id_rsa
+    - docker build -t test_docker .
 
 test:
   override:
@@ -13,6 +27,22 @@ test:
     - ansible-playbook --syntax-check site.yml
     - ansible --version
     - echo Hello World
+    - docker run -d -p 40122:22 --name test_sshd test_docker
+      #- docker run -d --privileged -p 40122:22 --name test_sshd test_docker /sbin/init
+      #- docker run -d -p 40122:22 --name test_sshd test_docker /sbin/init
+    - docker logs test_sshd
+    - ssh docker@localhost -p 40122 -i keys/docker_id_rsa -o StrictHostKeyChecking=no
+    - docker logs test_sshd
+    - docker ps -a
+    - ssh docker@localhost -p 40122 -o StrictHostKeyChecking=no
+    - docker logs test_sshd
+    - docker ps -a
+      #- ssh docker@localhost -p 40122 -i keys/docker_id_rsa -o StrictHostKeyChecking=no
+      #- docker inspect --format "{{.Id}}" test_sshd 
+      #- sudo ls -lR /var/lib/docker/containers/$(docker inspect --format "{{.Id}}" test_sshd)
+      #- sudo lxc-attach -n $(docker inspect --format "{{.Id}}" test_sshd) -f /var/lib/docker/containers/$(docker inspect --format "{{.Id}}" test_sshd)/config.lxc -- /bin/sh -c "systemctl restart sshd.service"
+      #- sudo lxc-attach -n $(docker inspect --format "{{.Id}}" test_sshd) -- bash -c "systemctl restart sshd.service"
+      #- sudo docker inspect --format "{{.Id}}" test_sshd) sudo lxc-attach -n $CID -f /var/lib/docker/contaIners/$CID/config.lxc -- /bin/sh -c "systemctl restart sshd.service"
 
 general:
   branches:
