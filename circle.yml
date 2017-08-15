@@ -8,12 +8,16 @@ machine:
 
 dependencies:
   pre:
+    - whoami
     - docker info
     - pip install ansible\==2.1.6 ansible-lint
     - git clone https://github.com/tsukinowasha/ansible-lint-rules.git
     - mkdir -p keys provisioning/inventory
     - echo "docker ansible_user=docker ansible_port=40122 ansible_host=localhost ansible_ssh_private_key_file=./keys/docker_id_rsa" >> ./provisioning/inventory/docker
+    - ls -lR ./
     - ssh-keygen -P "" -f keys/docker_id_rsa
+    - chown -R root:root keys/docker_id_rsa
+    - chmod 600 keys/docker_id_rsa
     - docker build -t test_docker .
 
 test:
