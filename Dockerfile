@@ -12,7 +12,7 @@ RUN sed -ri 's/^#RSAAuthentication yes/RSAAuthentication yes/' /etc/ssh/sshd_con
 RUN sed -ri 's/^#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 RUN sed -ri 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 
-RUN useradd docker
+RUN useradd -d /home/docker docker
 RUN mkdir -p /home/docker/.ssh
 RUN chmod 700 /home/docker/.ssh
 COPY ./keys/docker_id_rsa.pub /home/docker/.ssh/authorized_keys
