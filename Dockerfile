@@ -10,6 +10,7 @@ RUN ssh-keygen -t ed25519 -N "" -f /etc/ssh/ssh_host_ed25519_key
 RUN mkdir /var/run/sshd
 RUN sed -ri 's/^#RSAAuthentication yes/RSAAuthentication yes/' /etc/ssh/sshd_config
 RUN sed -ri 's/^#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+RUN sed -ri 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 
 RUN useradd docker
 RUN mkdir -p /home/docker/.ssh
