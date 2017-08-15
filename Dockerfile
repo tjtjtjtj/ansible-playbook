@@ -13,12 +13,13 @@ RUN sed -ri 's/^#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh
 RUN sed -ri 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 
 RUN useradd -d /home/docker docker
+RUN passwd -f -u docker
 RUN mkdir -p /home/docker/.ssh
 RUN chmod 700 /home/docker/.ssh
 COPY ./keys/docker_id_rsa.pub /home/docker/.ssh/authorized_keys
 RUN chmod 600 /home/docker/.ssh/authorized_keys
 RUN chown -R docker:docker /home/docker/.ssh
-RUN sed -ri 's/docker:x/docker:/' /etc/passwd
+RUN ls -laR /home/docker
 
 RUN echo "docker ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
