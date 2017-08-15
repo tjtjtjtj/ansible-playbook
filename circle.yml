@@ -29,6 +29,9 @@ test:
     - ssh docker@localhost -p 40122 -i keys/docker_id_rsa -o StrictHostKeyChecking=no
     - docker logs test_sshd
     - docker ps -a
+    - ssh docker@localhost -p 40122 -o StrictHostKeyChecking=no
+    - docker logs test_sshd
+    - docker ps -a
       #- ssh docker@localhost -p 40122 -i keys/docker_id_rsa -o StrictHostKeyChecking=no
       #- docker inspect --format "{{.Id}}" test_sshd 
       #- sudo ls -lR /var/lib/docker/containers/$(docker inspect --format "{{.Id}}" test_sshd)

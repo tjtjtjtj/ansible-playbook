@@ -18,6 +18,7 @@ RUN chmod 700 /home/docker/.ssh
 COPY ./keys/docker_id_rsa.pub /home/docker/.ssh/authorized_keys
 RUN chmod 600 /home/docker/.ssh/authorized_keys
 RUN chown -R docker:docker /home/docker/.ssh
+RUN sed -ri 's/docker:x/docker:/' /etc/passwd
 
 RUN echo "docker ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
