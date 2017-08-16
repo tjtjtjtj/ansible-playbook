@@ -1,0 +1,2 @@
+Hostname: {{ hostname }}
+Template: i3 {{ i3_env }} {{ i3_template }}
