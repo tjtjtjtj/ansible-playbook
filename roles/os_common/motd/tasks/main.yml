@@ -1,6 +1,6 @@
 - name: copy motd ( include server fqdn, i3_env, i3_template information )
   template:
-    src: motd
+    src: motd.j2
     dest: /etc/motd
     mode: 0644
     owner: root
