@@ -1,8 +1,6 @@
 machine:
   python:
     version: 2.7.5
-  enviroment:
-    CID: ""
   services:
     - docker
 
@@ -37,6 +35,7 @@ test:
     - ssh docker@localhost -p 40122 -o StrictHostKeyChecking=no
     - docker logs test_sshd
     - docker ps -a
+    - ansible-playbook ./playbook.yml -i ./provisioning/inventory/docker --private-key=./keys/docker_id_rsa
       #- ssh docker@localhost -p 40122 -i keys/docker_id_rsa -o StrictHostKeyChecking=no
       #- docker inspect --format "{{.Id}}" test_sshd 
       #- sudo ls -lR /var/lib/docker/containers/$(docker inspect --format "{{.Id}}" test_sshd)
