@@ -3,5 +3,5 @@
   debug: msg="test test test"
 
 - template:
-    src: foo.j2
+    src: foso.j2
     dest: /tmp/file.conf
