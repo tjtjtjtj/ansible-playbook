@@ -15,7 +15,7 @@
 
 - name: copy zabbix sender script, zbx_nginx_stat.py
   template: 
-    src: "{{ zabbix_script_name }}"
+    src: "{{ zabbix_script_name }}.j2"
     dest: "{{ zabbix_script_dir }}/{{ zabbix_script_name }}"
     mode: 0755
     owner: root
