@@ -1,4 +1,4 @@
 - hosts:
   - docker
   roles:
-    - {role: sample, tags: "sampletest"} 
+    - {role: sample, tags: "sample"} 
