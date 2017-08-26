@@ -39,3 +39,8 @@
   - zabbix
   roles:
     - {role: zabbix, tags: "zabbix"} 
+
+- hosts:
+  - unbound
+  roles:
+    - {role: unbound, tags: "unbound"} 

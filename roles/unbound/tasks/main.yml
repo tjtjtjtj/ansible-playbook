@@ -1,0 +1,9 @@
+- name: install unbound
+  yum:
+    name: unbound
+    state:  latest
+- name: enabled & start unbound
+  systemd:
+    name: unbound.service
+    state: started
+    enabled: yes
