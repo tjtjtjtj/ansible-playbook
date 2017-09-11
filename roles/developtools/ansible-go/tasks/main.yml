@@ -36,7 +36,7 @@
   when: set_go_path
 
 - name: Go packages install
-  shell: go get {{ item }}
+  shell: bash -lc go get {{ item }}
   become: yes
   become_user: jenkins
   register: testout
