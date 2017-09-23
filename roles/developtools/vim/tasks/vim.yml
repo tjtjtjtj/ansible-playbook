@@ -21,6 +21,21 @@
     dest: "{{ item.stdout }}/.vim/bundle/neobundle.vim"
   with_items: "{{ HOME_DIRECTORIES_LIST.results }}"
 
+- name: git clone Dotfiles
+  become: yes
+  git:
+    repo: https://github.com/tjtjtjtj/dotfiles.git
+    dest: "/etc/dotfiles"
+
+- name: add symlink to .vimrc
+  become: yes
+  file:
+    src: /etc/dotfiles/.vimrc
+    dest: "{{ item.stdout }}/.vimrc"
+    state: link
+  with_items: "{{ HOME_DIRECTORIES_LIST.results }}"
+
+
 # 以下のものは list作成などのサンプルとして、取っておく
 #- name: list of home directories 
 #  become: yes
