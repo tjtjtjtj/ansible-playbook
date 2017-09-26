@@ -9,6 +9,7 @@
   roles:
     - {role: developtools/vim, tags: "develop,developtools/vim"} 
     - {role: developtools/ansible-go, tags: "develop,developtools/ansible-go"} 
+    - {role: developtools/tools, tags: "develop,developtools/tools"} 
 
 - hosts:
   - jenkins

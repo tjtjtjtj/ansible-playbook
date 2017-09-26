@@ -1,0 +1,4 @@
+- name: install jq
+  yum :
+    name: jq
+    state:  latest
